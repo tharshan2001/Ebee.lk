@@ -5,6 +5,7 @@ import express from "express";
 import passport from "./utils/passport.js"; // passport now sees env vars
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import productRoutes from "./routes/productRoute.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -26,6 +27,7 @@ app.use(passport.initialize());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 // Test route
 app.get("/", (req, res) => res.send("🚀 Server running"));
