@@ -1,13 +1,13 @@
-import Product from "../models/Product.js";
+import Product from "../models/Product";
 export const createProduct = async (req, res) => {
   try{
-    const { name, description, price, category, image, stock } = req.body;
+    const { name, description, price, category, imageUrl, stock } = req.body;
     const newProduct = new Product({
       name,
       description,
       price,
       category,
-      image,
+      imageUrl,
       stock,
     });
     const savedProduct = await newProduct.save();
@@ -56,7 +56,8 @@ export const updateProduct = async (req, res) => {
 //delete product
 export const deleteProduct = async (req, res) => {
     try {
-        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+        const deletedProduct = await
+            Product.findByIdAndDelete(req.params.id);
         if (!deletedProduct) return res.status(404).json({ message: "Product not found" });
         res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {

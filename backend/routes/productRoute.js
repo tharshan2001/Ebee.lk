@@ -18,5 +18,3 @@ router.put('/:id', passport.authenticate('jwt', { session: false }), updateProdu
 
 // Delete a product by ID (protected route)
 router.delete('/:id', passport.authenticate('jwt', { session: false }), deleteProduct);
-
-export default router;
