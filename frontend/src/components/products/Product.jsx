@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { StarIcon, HeartIcon, ShoppingCartIcon, ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { EyeIcon, TruckIcon } from '@heroicons/react/24/outline';
-import Footer from '../components/Footer';
 
 // Mock product data - in real app this would come from API
 const mockProduct = {
@@ -292,7 +291,6 @@ const Product = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
