@@ -3,6 +3,7 @@ dotenv.config(); // ensure env vars loaded
 
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import User from "../models/User.js";
 
 // Google OAuth setup
@@ -25,6 +26,24 @@ passport.use(new GoogleStrategy({
     done(null, user);
   } catch (err) {
     done(err, null);
+  }
+}));
+
+// JWT Strategy setup
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET,
+};
+
+passport.use(new JwtStrategy(jwtOptions, async (payload, done) => {
+  try {
+    const user = await User.findById(payload.id);
+    if (user) {
+      return done(null, user);
+    }
+    return done(null, false);
+  } catch (error) {
+    return done(error, false);
   }
 }));
 
