@@ -51,3 +51,25 @@ export const protectAdmin = async (req, res, next) => {
     return res.status(401).json({ message: "Not authorized, token failed" });
   }
 };
+
+// Admin middleware for user routes (checks if user is admin)
+export const admin = async (req, res, next) => {
+  try {
+    // First check if user is authenticated
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    // Check if user has admin privileges (you can modify this logic based on your User model)
+    const adminUser = await Admin.findOne({ email: req.user.email });
+    
+    if (!adminUser) {
+      return res.status(403).json({ message: "Not authorized as admin" });
+    }
+
+    req.user.isAdmin = true;
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: "Not authorized, admin check failed" });
+  }
+};

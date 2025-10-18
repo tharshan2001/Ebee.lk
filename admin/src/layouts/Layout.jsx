@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   BellIcon,
   UserCircleIcon,
@@ -13,27 +13,22 @@ import {
 } from "@heroicons/react/24/outline";
 import Logout from "../components/Logout";
 
-export default function Layout() {
+export default function Layout({ children }) {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navItems = [
-    { path: "/", label: "Dashboard", icon: <HomeIcon className="w-5 h-5" /> },
+    { path: "/dashboard", label: "Dashboard", icon: <HomeIcon className="w-5 h-5" /> },
     { path: "/users", label: "Users", icon: <UsersIcon className="w-5 h-5" /> },
+    {
+      path: "/products/new",
+      label: "Add Product",
+      icon: <PlusIcon className="w-5 h-5" />,
+    },
     {
       path: "/settings",
       label: "Settings",
       icon: <Cog6ToothIcon className="w-5 h-5" />,
-    },
-    {
-      path: "/new",
-      label: "New Project",
-      icon: <PlusIcon className="w-5 h-5" />,
-    },
-    {
-      path: "/App",
-      label: "App",
-      icon: <PlusIcon className="w-5 h-5" />,
     },
   ];
 
@@ -239,7 +234,7 @@ export default function Layout() {
         {/* Page Content */}
         <main className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
-            <Outlet />
+            {children}
           </div>
         </main>
       </div>

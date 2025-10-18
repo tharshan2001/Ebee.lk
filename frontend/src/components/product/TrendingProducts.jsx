@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { StarIcon, HeartIcon } from '@heroicons/react/24/solid';
+import api from '../../api/axios'; 
 
 const TrendingProducts = () => {
   const [trendingProducts, setTrendingProducts] = useState([]);
@@ -15,14 +16,8 @@ const TrendingProducts = () => {
   const fetchTrendingProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8001/api/products/trending');
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      setTrendingProducts(data);
+      const response = await api.get('/products/trending');
+      setTrendingProducts(response.data);
       setError(null);
     } catch (err) {
       console.error('Error fetching trending products:', err);
@@ -41,15 +36,19 @@ const TrendingProducts = () => {
   };
 
   const ProductCard = ({ product }) => {
+    const imageUrl = product.images && product.images.length > 0
+      ? `${api.defaults.baseURL.replace('/api','')}${product.images[0]}`
+      : null;
+
     return (
       <div
         className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer flex flex-col h-full"
         onClick={() => handleProductClick(product)}
       >
         <div className="relative overflow-hidden rounded-t-xl flex-shrink-0">
-          {product.images && product.images.length > 0 ? (
+          {imageUrl ? (
             <img
-              src={product.images[0]}
+              src={imageUrl}
               alt={product.name}
               className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             />
@@ -58,19 +57,19 @@ const TrendingProducts = () => {
               <span className="text-gray-500">No Image</span>
             </div>
           )}
-          
+
           {product.discount > 0 && (
             <span className="absolute top-3 left-3 bg-yellow-400 text-black px-2 py-1 rounded-full text-sm font-bold">
               -{product.discount}%
             </span>
           )}
-          
+
           {product.isNew && (
             <span className="absolute top-3 right-3 bg-black text-yellow-400 px-2 py-1 rounded-full text-sm font-bold">
               NEW
             </span>
           )}
-          
+
           <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black text-yellow-400 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <HeartIcon className="h-5 w-5" />
           </button>
@@ -80,10 +79,8 @@ const TrendingProducts = () => {
           <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2 text-sm min-h-[40px]">
             {product.name}
           </h3>
-          
-          {product.brand && (
-            <p className="text-xs text-gray-600 mb-2">{product.brand}</p>
-          )}
+
+          {product.brand && <p className="text-xs text-gray-600 mb-2">{product.brand}</p>}
 
           <div className="flex items-center mb-2">
             {[...Array(5)].map((_, i) => (
@@ -180,14 +177,14 @@ const TrendingProducts = () => {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-900">Trending Items</h2>
-        <button 
+        <button
           onClick={handleViewAll}
           className="text-yellow-600 hover:text-yellow-700 font-semibold"
         >
           View All →
         </button>
       </div>
-      
+
       {trendingProducts.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-gray-500 text-lg">No trending products available at the moment.</p>
