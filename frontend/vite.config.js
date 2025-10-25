@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    port: 6001,     // new fixed port
+    port: 8090,     // new fixed port
     strictPort: true, // fail if port is in use
   },
 })
