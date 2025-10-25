@@ -1,7 +1,12 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import passport from "../utils/passport.js";
-import { login, register, logout, getMe } from "../controllers/authController.js";
+import {
+  login,
+  register,
+  logout,
+  getMe,
+} from "../controllers/authController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -25,14 +30,19 @@ if (process.env.ENABLE_GOOGLE_AUTH === "true") {
   // Step 2: Google redirects here after login
   router.get(
     "/google/callback",
-    passport.authenticate("google", { failureRedirect: `${FRONTEND_URL}/login`, session: false }),
+    passport.authenticate("google", {
+      failureRedirect: `${FRONTEND_URL}/login`,
+      session: false,
+    }),
     (req, res) => {
       if (!req.user) {
         return res.redirect(`${FRONTEND_URL}/login`);
       }
 
       // Create JWT
-      const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+      const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
 
       // Set cookie and redirect to frontend
       res

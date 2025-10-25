@@ -19,22 +19,22 @@ const App = () => {
       <AddressProvider>
         <CartProvider>
           <Router>
-          <Navbar /> {/* Navbar outside Routes */}
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="/product/:slug" element={<ProductView/>} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Navbar /> {/* Navbar outside Routes */}
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<HomePage />} />
+              <Route path="/product/:slug" element={<ProductView />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-            {/* Protected / Account Routes */}
-            <Route path="/account" element={<MyAccount/>} />
+              {/* Protected / Account Routes */}
+              <Route path="/account" element={<MyAccount />} />
 
-            {/* Default fallback */}
-            <Route path="*" element={<Login />} />
-          </Routes>
+              {/* Default fallback */}
+              <Route path="*" element={<Login />} />
+            </Routes>
           </Router>
         </CartProvider>
       </AddressProvider>

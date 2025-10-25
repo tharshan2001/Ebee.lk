@@ -1,5 +1,10 @@
 import express from "express";
-import { addAddress, getAddresses, updateAddress, deleteAddress } from "../controllers/addressController.js";
+import {
+  addAddress,
+  getAddresses,
+  updateAddress,
+  deleteAddress,
+} from "../controllers/addressController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

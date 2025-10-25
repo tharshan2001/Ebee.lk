@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import banner1 from '../../assets/banner1.jpg';
-import banner2 from '../../assets/banner1.jpg';
-import banner3 from '../../assets/banner1.jpg';
+import React, { useState, useEffect } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import banner1 from "../../assets/banner1.jpg";
+import banner2 from "../../assets/banner1.jpg";
+import banner3 from "../../assets/banner1.jpg";
 
 const heroImages = [
   { id: 1, image: banner1 },
   { id: 2, image: banner2 },
-  { id: 3, image: banner3 }
+  { id: 3, image: banner3 },
 ];
 
 const Home = () => {
@@ -26,14 +26,16 @@ const Home = () => {
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroImages.length) % heroImages.length
+    );
   };
 
   return (
     <div className=" bg-gray-50">
       {/* Hero Carousel */}
       <div className="relative h-96 md:h-[500px] overflow-hidden">
-        <div 
+        <div
           className="flex transition-transform duration-500 ease-in-out h-full"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
@@ -44,9 +46,17 @@ const Home = () => {
                 alt={`Banner ${index + 1}`}
                 className="w-full h-full object-cover object-center"
                 loading="lazy"
-                style={{ imageRendering: 'crisp-edges' }}
-                onLoad={() => console.log('✅ Banner image loaded:', slide.image)}
-                onError={(e) => console.error('❌ Banner image failed to load:', slide.image, e)}
+                style={{ imageRendering: "crisp-edges" }}
+                onLoad={() =>
+                  console.log("✅ Banner image loaded:", slide.image)
+                }
+                onError={(e) =>
+                  console.error(
+                    "❌ Banner image failed to load:",
+                    slide.image,
+                    e
+                  )
+                }
               />
             </div>
           ))}
@@ -76,9 +86,9 @@ const Home = () => {
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                index === currentSlide 
-                  ? 'bg-yellow-400 scale-125' 
-                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                index === currentSlide
+                  ? "bg-yellow-400 scale-125"
+                  : "bg-white bg-opacity-50 hover:bg-opacity-75"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
