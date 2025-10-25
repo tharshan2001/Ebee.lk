@@ -1,4 +1,4 @@
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
@@ -16,7 +16,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import passport from "./utils/passport.js";
 
-
 // ✅ Connect to MongoDB
 connectDB();
 
@@ -31,7 +30,6 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
-
 
 // ✅ CORS Configuration
 const allowedOrigin = "http://localhost:8090";

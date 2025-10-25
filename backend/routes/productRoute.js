@@ -6,7 +6,7 @@ import {
   getProductBySlug,
   getTrendingProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } from "../controllers/productController.js";
 import upload from "../utils/upload.js";
 
